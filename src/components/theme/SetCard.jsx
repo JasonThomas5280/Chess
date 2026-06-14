@@ -36,6 +36,12 @@ export default function SetCard({ theme, active, onSelect }) {
           style={{
             background: `repeating-conic-gradient(${p.lightSquare} 0deg 90deg, ${p.darkSquare} 90deg 180deg)`,
             backgroundSize: '28px 28px',
+            // Scope this empire's palette to the preview so each card shows its
+            // OWN piece colors, not the globally-active theme's.
+            '--white-piece': p.whitePiece,
+            '--black-piece': p.blackPiece,
+            '--accent': p.accent,
+            '--glow': p.glow,
           }}
         >
           {PREVIEW.map((t, i) => (

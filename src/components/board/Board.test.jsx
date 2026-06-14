@@ -15,13 +15,12 @@ describe('Board sizing', () => {
     expect(container.querySelectorAll('[data-square]')).toHaveLength(64)
   })
 
-  it('uses a concrete viewport width, not w-full alone', () => {
+  it('has a concrete inline width + square aspect so it cannot collapse', () => {
     useGameStore.getState().reset(START_FEN)
     const { container } = render(<Board />)
     const root = container.firstChild
-    const cls = root.getAttribute('class') || ''
-    // Must carry an explicit min()-based width so it cannot collapse.
-    expect(cls).toMatch(/w-\[min\(/)
-    expect(cls).toContain('aspect-square')
+    // Inline styles guarantee a visible board regardless of CSS-class purging.
+    expect(root.style.width).toMatch(/min\(/)
+    expect(root.style.aspectRatio.replace(/\s/g, '')).toBe('1/1')
   })
 })

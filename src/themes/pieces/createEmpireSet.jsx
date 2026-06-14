@@ -13,10 +13,39 @@ import PieceSvg from './PieceSvg.jsx'
 //   knight:  'horse' | 'antelope' (head silhouette variant)
 // }
 
-const Base = () => (
-  <path d="M27 92 Q25 79 34 77 L66 77 Q75 79 73 92 Z M34 77 Q33 70 41 68 L59 68 Q67 70 66 77 Z" />
-)
-const Column = () => <path d="M40 68 Q36 54 45 49 L55 49 Q64 54 60 68 Z" />
+// Footer of each piece — varied per empire so silhouettes differ at a glance.
+function baseEl(kind) {
+  switch (kind) {
+    case 'flared':
+      return <path d="M22 92 L31 75 L69 75 L78 92 Z M34 75 L37 69 L63 69 L66 75 Z" />
+    case 'stepped':
+      return (
+        <path d="M25 92 L25 86 L75 86 L75 92 Z M30 86 L30 80 L70 80 L70 86 Z M35 80 L38 69 L62 69 L65 80 Z" />
+      )
+    case 'pedestal':
+      return (
+        <path d="M24 92 L28 84 L72 84 L76 92 Z M33 84 L33 76 L67 76 L67 84 Z M36 76 L40 69 L60 69 L64 76 Z" />
+      )
+    case 'round':
+    default:
+      return (
+        <path d="M27 92 Q25 79 34 77 L66 77 Q75 79 73 92 Z M34 77 Q33 70 41 68 L59 68 Q67 70 66 77 Z" />
+      )
+  }
+}
+
+// Column/body bridging base→top.
+function columnEl(kind) {
+  switch (kind) {
+    case 'straight':
+      return <path d="M41 69 L43 50 L57 50 L59 69 Z" />
+    case 'waist':
+      return <path d="M40 69 Q47 60 43 50 L57 50 Q53 60 60 69 Z" />
+    case 'curve':
+    default:
+      return <path d="M40 68 Q36 54 45 49 L55 49 Q64 54 60 68 Z" />
+  }
+}
 
 function crownTop(kind) {
   switch (kind) {
@@ -160,13 +189,22 @@ function knightTop(kind) {
 }
 
 export function createEmpireSet(config) {
-  const { crown = 'cross', queen = 'orb', tower = 'battlement', bishop = 'mitre', knight = 'horse', pawn = 'orb' } = config
+  const {
+    crown = 'cross',
+    queen = 'orb',
+    tower = 'battlement',
+    bishop = 'mitre',
+    knight = 'horse',
+    pawn = 'orb',
+    base = 'round',
+    body = 'curve',
+  } = config
 
   function King({ color, size, className }) {
     return (
       <PieceSvg color={color} size={size} className={className} title="King">
-        <Base />
-        <Column />
+        {baseEl(base)}
+        {columnEl(body)}
         {crownTop(crown)}
       </PieceSvg>
     )
@@ -174,8 +212,8 @@ export function createEmpireSet(config) {
   function Queen({ color, size, className }) {
     return (
       <PieceSvg color={color} size={size} className={className} title="Queen">
-        <Base />
-        <Column />
+        {baseEl(base)}
+        {columnEl(body)}
         {crownTop(queen)}
       </PieceSvg>
     )
@@ -183,7 +221,7 @@ export function createEmpireSet(config) {
   function Rook({ color, size, className }) {
     return (
       <PieceSvg color={color} size={size} className={className} title="Rook">
-        <Base />
+        {baseEl(base)}
         {towerTop(tower)}
       </PieceSvg>
     )
@@ -191,7 +229,7 @@ export function createEmpireSet(config) {
   function Bishop({ color, size, className }) {
     return (
       <PieceSvg color={color} size={size} className={className} title="Bishop">
-        <Base />
+        {baseEl(base)}
         {bishopTop(bishop)}
       </PieceSvg>
     )
@@ -199,7 +237,7 @@ export function createEmpireSet(config) {
   function Knight({ color, size, className }) {
     return (
       <PieceSvg color={color} size={size} className={className} title="Knight">
-        <Base />
+        {baseEl(base)}
         {knightTop(knight)}
       </PieceSvg>
     )

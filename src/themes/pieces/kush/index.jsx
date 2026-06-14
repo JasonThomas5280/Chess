@@ -8,4 +8,6 @@ export default createEmpireSet({
   bishop: 'ankh',
   knight: 'horse',
   pawn: 'pyramid',
+  base: 'stepped',
+  body: 'straight',
 })

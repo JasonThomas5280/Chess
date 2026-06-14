@@ -49,10 +49,19 @@ export default function Board({ interactive = true }) {
   }
 
   return (
-    <div className="relative aspect-square w-[min(92vw,70vh)] max-w-full select-none lg:w-[min(46vw,72vh)]">
+    <div
+      className="relative select-none"
+      style={{ width: 'min(90vw, 70vh)', maxWidth: '100%', aspectRatio: '1 / 1' }}
+    >
       <div className="relative h-full w-full overflow-hidden rounded-xl border-4 border-board-border shadow-glow-lg">
-        {/* Square grid */}
-        <div className="grid h-full w-full grid-cols-8">
+        {/* Square grid — explicit 8x8 tracks so cells fill the board exactly. */}
+        <div
+          className="grid h-full w-full"
+          style={{
+            gridTemplateColumns: 'repeat(8, 1fr)',
+            gridTemplateRows: 'repeat(8, 1fr)',
+          }}
+        >
           {squares.map((sq) => {
             const { file, rank } = squareToCoords(sq)
             const targeted = legalTargets.includes(sq)
