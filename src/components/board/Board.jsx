@@ -49,7 +49,7 @@ export default function Board({ interactive = true }) {
   }
 
   return (
-    <div className="relative w-full max-w-[min(92vw,72vh)] aspect-square select-none">
+    <div className="relative aspect-square w-[min(92vw,70vh)] max-w-full select-none lg:w-[min(46vw,72vh)]">
       <div className="relative h-full w-full overflow-hidden rounded-xl border-4 border-board-border shadow-glow-lg">
         {/* Square grid */}
         <div className="grid h-full w-full grid-cols-8">
