@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Default palette (Mali) — overridden at runtime by ThemeProvider. */
+  --light-sq: #e8c77a;
+  --dark-sq: #8a5a2b;
+  --board-border: #3a2410;
+  --white-piece: #fff4dc;
+  --black-piece: #241606;
+  --accent: #d4af37;
+  --glow: #f2c84b;
+  --bg-from: #1a1209;
+  --bg-to: #3a2410;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  color: #f4ecdd;
+  background: #0c0a07;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.font-display {
+  font-family: 'Cinzel', Georgia, serif;
+}
+
+/* Gradient text helper for headings. */
+.text-gradient {
+  background: linear-gradient(120deg, var(--accent), var(--glow), #fff4dc);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Subtle glass panel. */
+.glass {
+  background: rgba(20, 14, 6, 0.55);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(212, 175, 55, 0.18);
+}
+
+/* Thin themed scrollbar. */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.35);
+  border-radius: 8px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
